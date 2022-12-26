@@ -1,0 +1,7 @@
+FROM node:19.2.0-alpine3.15
+COPY backend/ /opt/app/backend
+WORKDIR /opt/app/backend
+# Create config file from example if config doesn't exist
+RUN cp -n config-example.env config.env
+RUN yarn install --prod
+ENTRYPOINT sh -c 'wget -qO- https://raw.githubusercontent.com/eficode/wait-for/v2.2.3/wait-for | sh -s -- node_api:3000 -- node src/worker.js populate && node src/worker.js'

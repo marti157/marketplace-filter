@@ -1,0 +1,15 @@
+FROM node:19.2.0-alpine3.15
+COPY interface/ /opt/app/interface
+COPY backend/ /opt/app/backend
+RUN mkdir /opt/app/backend/public
+WORKDIR /opt/app/interface
+# Create config file from example if config doesn't exist
+RUN cp -n config-example.js config.js
+RUN yarn install --prod
+RUN yarn run build
+RUN cp -r dist/* ../backend/public
+WORKDIR /opt/app/backend
+# Create config file from example if config doesn't exist
+RUN cp -n config-example.env config.env
+RUN yarn install --prod
+ENTRYPOINT ["yarn", "start"]

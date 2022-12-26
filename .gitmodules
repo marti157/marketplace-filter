@@ -1,0 +1,6 @@
+[submodule "interface"]
+	path = interface
+	url = https://github.com/marti157/marketplace-filter-interface.git
+[submodule "backend"]
+	path = backend
+	url = https://github.com/marti157/marketplace-filter-backend.git
